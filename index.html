@@ -22,7 +22,9 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: #3b4d36;
             color: var(--text-light);
-            overflow: hidden;
+            /* Permite rolagem se a tela for muito pequena */
+            overflow-y: auto; 
+            overflow-x: hidden;
         }
 
         .background-container {
@@ -47,45 +49,56 @@
             z-index: -1;
         }
 
+        /* Estrutura principal flexível */
         .content-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            min-height: 100vh;
+            width: 100%;
             z-index: 1;
+            padding: 20px 0;
+            box-sizing: border-box;
         }
 
-        .logos-container {
-            position: absolute;
-            top: 30px;
-            width: 90%;
+        /* Novo Cabeçalho Flexbox - Evita sobreposições */
+        .header-container {
+            width: 95%;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             z-index: 10;
+        }
+
+        /* Áreas laterais para as logos (mantém o título centralizado) */
+        .header-side {
+            width: 180px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Área central para o título */
+        .header-center {
+            flex: 1;
+            text-align: center;
+            padding: 0 15px;
         }
         
         #textoResultado {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 15px;
-            text-align: center;
-            width: 100%;
-            font-size: 2.5em;
+            font-size: 2.2em; /* Tamanho ligeiramente reduzido para notebooks */
             font-weight: 900;
             color: var(--accent);
             text-transform: uppercase;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
             letter-spacing: 2px;
+            line-height: 1.2;
+            margin: 0;
         }
 
         .logo-img, .logo-evento {
-            max-width: 210px;
-            max-height: 210px;
+            max-width: 160px;
+            max-height: 160px;
             object-fit: contain;
             filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.5));
         }
@@ -96,14 +109,15 @@
             background-color: transparent;
         }
 
+        /* Pódio Central */
         .podium-container {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 50px;
-            width: 85%;
-            height: 60%;
-            margin-top: 50px;
+            gap: 40px;
+            width: 90%;
+            margin-top: 30px;
+            margin-bottom: 50px;
         }
 
         .podium-place {
@@ -130,8 +144,8 @@
         }
 
         .emblem-box {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -146,7 +160,7 @@
         }
 
         .place-title {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: 800;
             color: var(--silver);
             text-transform: uppercase;
@@ -154,11 +168,11 @@
             letter-spacing: 2px;
         }
         
-        .place-1 .place-title { color: var(--accent); font-size: 1.6em;}
+        .place-1 .place-title { color: var(--accent); font-size: 1.5em;}
         .place-3 .place-title { color: var(--bronze); }
 
         .team-name {
-            font-size: 1.6em;
+            font-size: 1.5em;
             font-weight: 800;
             text-transform: uppercase;
             margin: 5px 0 0 0;
@@ -167,7 +181,7 @@
         }
 
         .team-country {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
             color: #d1d1d1;
             text-transform: uppercase;
@@ -176,67 +190,41 @@
         }
 
         .team-score {
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: 600;
             margin-top: 5px;
         }
 
         #status-msg {
-            position: absolute;
-            bottom: 20px;
             font-size: 0.9em;
             color: rgba(255,255,255,0.6);
+            margin-top: 10px;
         }
 
+        /* Responsividade para Celulares e Tablets */
         @media (max-width: 900px) {
-            body, html {
-                overflow-y: auto;
+            .header-side {
+                width: 70px;
             }
-
-            .content-wrapper {
-                justify-content: flex-start;
-                padding-top: 20px;
-                padding-bottom: 60px;
-                height: auto;
-                min-height: 100vh;
-            }
-
-            .logos-container {
-                position: relative;
-                top: 0;
-                width: 95%;
-                margin-bottom: 20px;
-                align-items: center;
-            }
-
             .logo-img, .logo-evento {
-                max-width: 80px;
-                max-height: 80px;
+                max-width: 70px;
+                max-height: 70px;
             }
-
             #textoResultado {
-                position: static;
-                transform: none;
-                font-size: 1.5em;
-                margin-top: 10px;
-                line-height: 1.2;
+                font-size: 1.4em;
             }
-
             .podium-container {
                 flex-direction: column;
                 align-items: center;
-                height: auto;
                 gap: 40px;
                 margin-top: 20px;
                 width: 100%;
             }
-
             .place-1, .place-2, .place-3 {
                 margin-bottom: 0;
                 transform: none;
                 width: 90%;
             }
-
             .place-1 { order: 1; transform: scale(1.05); }
             .place-2 { order: 2; }
             .place-3 { order: 3; }
@@ -245,15 +233,8 @@
                 width: 130px;
                 height: 130px;
             }
-
             .medal {
                 font-size: 3em;
-            }
-
-            #status-msg {
-                position: relative;
-                bottom: 0;
-                margin-top: 40px;
             }
         }
     </style>
@@ -264,11 +245,17 @@
     <div class="overlay"></div>
 
     <div class="content-wrapper">
-        <div class="logos-container">
-            <img id="logoAmanTop" src="" alt="Logo AMAN" class="logo-img" style="display:none;">
-            <div id="textoResultado"></div>
-            <!-- Logo do Evento -->
-            <img id="logoEventoTop" src="" alt="Logo Desafio Agulhas Negras" class="logo-evento" style="display:none;">
+        <!-- Cabeçalho protegido contra sobreposição -->
+        <div class="header-container">
+            <div class="header-side">
+                <img id="logoAmanTop" src="" alt="Logo AMAN" class="logo-img" style="display:none;">
+            </div>
+            <div class="header-center">
+                <div id="textoResultado"></div>
+            </div>
+            <div class="header-side">
+                <img id="logoEventoTop" src="" alt="Logo Desafio Agulhas Negras" class="logo-evento" style="display:none;">
+            </div>
         </div>
 
         <div class="podium-container">
@@ -431,7 +418,6 @@
                 logoAmanEl.style.display = 'block';
             }
 
-            // AJUSTE: Procura por qualquer chave que contenha "SYMBOL"
             let keySymbol = Object.keys(emblemasMap).find(k => k.toUpperCase().includes('SYMBOL'));
             if (keySymbol && emblemasMap[keySymbol]) {
                 const logoEventoEl = document.getElementById('logoEventoTop');
